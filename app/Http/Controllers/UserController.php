@@ -40,10 +40,14 @@ class UserController extends Controller
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|min:8',
+            'role'     => 'required|in:admin,user',
+            'status'   => 'required|in:active,inactive',
         ]);
 
         $user->name  = $request->name;
         $user->email = $request->email;
+        $user->role  = $request->role;
+        $user->status = $request->status;
 
         /* Only update password if a new one was provided */
         if ($request->filled('password')) {

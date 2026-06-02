@@ -231,6 +231,44 @@
         font-size: 0.875rem;
     }
 
+    /* Role Badge */
+    .badge-role {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    .role-admin {
+        background: rgba(255, 193, 77, 0.15);
+        color: #a07820;
+    }
+
+    .role-user {
+        background: rgba(47, 157, 182, 0.25);
+        color: var(--forest);
+    }
+
+    /* Status Badge */
+    .badge-status {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    .status-active {
+        background: rgba(121, 185, 126, 0.47);
+        color: #3C593E;
+    }   
+
+    .status-inactive {
+        background: rgba(217, 107, 82, 0.2);
+        color: var(--terracotta);
+    }
+
     /* ==================== MODAL ==================== */
     .modal-overlay {
         position: fixed;
@@ -432,6 +470,8 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
+                <th>Role</th>
+                <th>Status</th>
                 <th>Created Date</th>
                 <th>Actions</th>
             </tr>
@@ -451,9 +491,27 @@
                             </div>
                         </div>
                     </td>
+                    <td>
+                        <span class="badge-role {{ $user->role === 'admin' ? 'role-admin' : 'role-user' }}">
+                            {{ ucfirst($user->role) }}
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="badge-status {{ $user->status === 'active' ? 'status-active' : 'status-inactive' }}">
+                            {{ ucfirst($user->status) }}
+                        </span>
+                    </td>
+
                     <td>{{ $user->created_at->format('M j, Y') }}</td>
                     <td>
-                        <button class="btn-edit" onclick="openEditModal({{ $user->id }}, '{{ $user->name }}', '{{ $user->email }}')">
+                        <button class="btn-edit" onclick="openEditModal(
+                            {{ $user->id }},
+                            '{{ $user->name }}',
+                            '{{ $user->email }}',
+                            '{{ $user->role }}',
+                            '{{ $user->status }}'
+                        )">
                             <i class="bi bi-pencil"></i> Edit
                         </button>
                         <button class="btn-delete" onclick="openDeleteModal({{ $user->id }}, '{{ $user->name }}')">
@@ -463,7 +521,7 @@
                 </tr>
             @empty
                 <tr class="empty-row">
-                    <td colspan="4">🌿 No users found.</td>
+                    <td colspan="6">🌿 No users found.</td>
                 </tr>
             @endforelse
         </tbody>
@@ -485,6 +543,18 @@
 
             <label class="form-label-c">Email Address</label>
             <input type="email" name="email" class="form-input-c" placeholder="you@example.com" required>
+
+            <label class="form-label-c">Role</label>
+            <select name="role" class="form-input-c">
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
+
+            <label class="form-label-c">Status</label>
+            <select name="status" class="form-input-c">
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+            </select>
 
             <label class="form-label-c">Password</label>
             <input type="password" name="password" class="form-input-c" placeholder="Min. 8 characters" required>
@@ -512,6 +582,18 @@
 
             <label class="form-label-c">Email Address</label>
             <input type="email" name="email" id="editEmail" class="form-input-c" required>
+            
+            <label class="form-label-c">Role</label>
+            <select name="role" id="editRole" class="form-input-c">
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
+
+            <label class="form-label-c">Status</label>
+            <select name="status" id="editStatus" class="form-input-c">
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+            </select>
 
             <label class="form-label-c">New Password <span style="color:#9aaa9b;font-weight:300;text-transform:none;">(leave blank to keep current)</span></label>
             <input type="password" name="password" class="form-input-c" placeholder="Leave blank to keep current">
@@ -554,9 +636,11 @@
         document.getElementById('addModal').classList.add('show');
     }
 
-    function openEditModal(id, name, email) {
+    function openEditModal(id, name, email, role, status) {
         document.getElementById('editName').value  = name;
         document.getElementById('editEmail').value = email;
+        document.getElementById('editRole').value = role;
+        document.getElementById('editStatus').value = status;
         document.getElementById('editForm').action = '/users/' + id;
         document.getElementById('editModal').classList.add('show');
     }

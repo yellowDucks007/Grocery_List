@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\Storage;
 class ProfileController extends Controller
 {
     /* Show the profile page */
-    public function index()
+    public function edit()
     {
         $user = Auth::user();
-        return view('profile.index', compact('user'));
+        return view('profile.edit', compact('user'));
     }
 
     /* Update profile information */
@@ -39,7 +39,6 @@ class ProfileController extends Controller
 
         /* Handle profile picture upload */
         if ($request->hasFile('avatar')) {
-            /* Delete old avatar if it exists */
             if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
                 Storage::disk('public')->delete($user->avatar);
             }
@@ -51,6 +50,26 @@ class ProfileController extends Controller
             $user->save();
         }
 
-        return redirect()->route('profile.index')->with('success', 'Profile updated successfully!');
+        return redirect()->route('profile.edit')->with('success', 'Profile updated successfully!');
+    }
+
+    // Change password
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|min:8|confirmed'
+        ]);
+
+        /** @var User $user */
+        $user = Auth::user();
+
+        if (! $user) {
+            return back()->withErrors('User not authenticated.');
+        }
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return back()->with('success', 'Password updated successfully!');
     }
 }

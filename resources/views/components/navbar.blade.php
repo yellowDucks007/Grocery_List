@@ -291,7 +291,7 @@
         <ul class="nav-links">
 
             <li>
-                <a href="{{ route('profile.index') }}" class="{{ request()->routeIs('profile.*') ? 'active' : '' }}">
+                <a href="{{ route('profile.edit') }}" class="{{ request()->routeIs('profile.*') ? 'active' : '' }}">
                     <span class="nav-icon"><i class="bi bi-person-circle"></i></span>
                     My Profile
                 </a>
