@@ -1,4 +1,4 @@
-@extends('layouts.navbar')
+@extends('layouts.app')
 
 @section('title', 'Edit Profile – GroCart')
 @section('page-title', 'Edit Profile')
@@ -14,7 +14,7 @@
     }
 
     .page-header h1 {
-        font-family: 'Playfair Display', serif;
+        font-family: 'Open Sans', sans-serif;
         font-size: 1.4rem;
         font-weight: 600;
         color: var(--forest);
@@ -34,7 +34,7 @@
         padding: 9px 18px;
         border-radius: 8px;
         font-size: 0.875rem;
-        font-family: 'DM Sans', sans-serif;
+        font-family: 'Open Sans', sans-serif;
         cursor: pointer;
         display: inline-flex;
         align-items: center;
@@ -76,7 +76,7 @@
     }
 
     .edit-card-title {
-        font-family: 'Playfair Display', serif;
+        font-family: 'Open Sans', sans-serif;
         font-size: 1rem;
         font-weight: 600;
         color: var(--forest);
@@ -108,7 +108,7 @@
         font-size: 1.75rem;
         color: var(--cream);
         font-weight: 600;
-        font-family: 'DM Sans', sans-serif;
+        font-family: 'Open Sans', sans-serif;
         overflow: hidden;
         flex-shrink: 0;
         text-transform: uppercase;
@@ -145,7 +145,7 @@
         padding: 7px 16px;
         border-radius: 8px;
         font-size: 0.82rem;
-        font-family: 'DM Sans', sans-serif;
+        font-family: 'Open Sans', sans-serif;
         font-weight: 500;
         cursor: pointer;
         transition: all 0.18s;
@@ -189,7 +189,7 @@
         border: 1.5px solid #d0d8d1;
         border-radius: 8px;
         font-size: 0.9rem;
-        font-family: 'DM Sans', sans-serif;
+        font-family: 'Open Sans', sans-serif;
         color: var(--forest);
         background-color: #fafafa;
         outline: none;
@@ -238,7 +238,7 @@
         padding: 10px 22px;
         border-radius: 8px;
         font-size: 0.875rem;
-        font-family: 'DM Sans', sans-serif;
+        font-family: 'Open Sans', sans-serif;
         cursor: pointer;
         text-decoration: none;
         transition: all 0.18s;
@@ -260,7 +260,7 @@
         border-radius: 8px;
         font-size: 0.875rem;
         font-weight: 500;
-        font-family: 'DM Sans', sans-serif;
+        font-family: 'Open Sans', sans-serif;
         cursor: pointer;
         transition: background-color 0.2s;
         display: inline-flex;

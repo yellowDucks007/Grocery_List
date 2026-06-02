@@ -14,7 +14,7 @@
     }
 
     .page-header h1 {
-        font-family: 'Playfair Display', serif;
+        font-family: 'Open Sans Display', serif;
         font-size: 1.4rem;
         font-weight: 600;
         color: var(--forest);
@@ -34,7 +34,7 @@
         padding: 10px 20px;
         border-radius: 8px;
         font-size: 0.875rem;
-        font-family: 'DM Sans', sans-serif;
+        font-family: 'Open Sans', sans-serif;
         font-weight: 500;
         cursor: pointer;
         display: inline-flex;
@@ -98,7 +98,7 @@
         font-size: 2rem;
         color: var(--cream);
         font-weight: 600;
-        font-family: 'DM Sans', sans-serif;
+        font-family: 'Open Sans', sans-serif;
         overflow: hidden;
         text-transform: uppercase;
     }
@@ -110,7 +110,7 @@
     }
 
     .profile-name {
-        font-family: 'Playfair Display', serif;
+        font-family: 'Open Sans Display', serif;
         font-size: 1.4rem;
         font-weight: 600;
         color: var(--forest);
@@ -142,7 +142,7 @@
     }
 
     .stat-num {
-        font-family: 'Playfair Display', serif;
+        font-family: 'Open Sans Display', serif;
         font-size: 1.6rem;
         font-weight: 600;
         color: var(--forest);
