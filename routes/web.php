@@ -38,8 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/grocery/{grocery}', [GroceryController::class, 'destroy'])->name('grocery.destroy');
 
     /* Profile */
-    Route::get('/profile',         [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/profile/update',  [ProfileController::class, 'update'])->name('profile.update');
-    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
+    Route::get('/profile',        [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/profile/edit',   [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
 });
