@@ -1,174 +1,135 @@
-<!-- ==================== TOAST NOTIFICATION ==================== -->
+<!-- ==================== TOAST CONTAINER ==================== -->
+<div id="toastContainer" style="
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 280px;
+    max-width: 360px;
+"></div>
 
 <style>
-    .toast-container {
-        position: fixed;
-        bottom: 1.5rem;
-        right: 1.5rem;
-        z-index: 9999;
-    }
-
-    .toast-custom {
-        background: #ffffff;
-        border-radius: 12px;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-        padding: 14px 18px;
+    .toast-item {
         display: flex;
         align-items: center;
         gap: 12px;
-        min-width: 300px;
-        border: 1px solid #E9ECEF;
-        animation: slideIn 0.3s ease;
-    }
-
-    @keyframes slideIn {
-        from {
-            transform: translateX(100px);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-
-    .toast-icon-wrap {
-        width: 38px;
-        height: 38px;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        font-size: 1rem;
-        font-weight: bold;
-    }
-
-    .toast-success .toast-icon-wrap {
-        background-color: rgba(60, 89, 62, 0.15);
-        color: #3C593E;
-    }
-
-    .toast-error .toast-icon-wrap {
-        background-color: rgba(217, 107, 82, 0.15);
-        color: #D96B52;
-    }
-
-    .toast-body-text {
-        flex: 1;
-    }
-
-    .toast-title {
-        font-size: 0.85rem;
-        font-weight: 700;
-        color: #103740;
-        margin-bottom: 2px;
-    }
-
-    .toast-msg {
-        font-size: 0.8rem;
-        color: #6C757D;
+        padding: 14px 18px;
+        border-radius: 10px;
+        font-size: 0.875rem;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 400;
+        color: #F2EAE4;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 0.35s ease, transform 0.35s ease;
         line-height: 1.4;
     }
 
+    .toast-item.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .toast-item.hide {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    .toast-success { background-color: #3C593E; }
+    .toast-error   { background-color: #D96B52; }
+    .toast-info    { background-color: #103740; }
+    .toast-warning { background-color: #D9A443; color: #103740; }
+
+    .toast-icon {
+        font-size: 1.1rem;
+        flex-shrink: 0;
+    }
+
+    .toast-message {
+        flex: 1;
+    }
+
     .toast-close {
-        border: none;
         background: none;
-        color: #9CA3AF;
+        border: none;
+        color: inherit;
+        opacity: 0.6;
         cursor: pointer;
         font-size: 1rem;
         padding: 0;
-        margin-left: auto;
+        line-height: 1;
+        flex-shrink: 0;
+        transition: opacity 0.2s;
     }
 
     .toast-close:hover {
-        color: #103740;
-    }
-
-    .toast-fade-out {
-        opacity: 0;
-        transition: opacity 0.3s ease;
+        opacity: 1;
     }
 </style>
 
-@if (session('success'))
-    <div class="toast-container">
-        <div class="toast-custom toast-success" id="toastBox">
-
-            <div class="toast-icon-wrap">
-                ✓
-            </div>
-
-            <div class="toast-body-text">
-                <div class="toast-title">
-                    Success
-                </div>
-
-                <div class="toast-msg">
-                    {{ session('success') }}
-                </div>
-            </div>
-
-            <button
-                type="button"
-                class="toast-close"
-                onclick="closeToast()">
-                ×
-            </button>
-
-        </div>
-    </div>
-@endif
-
-@if (session('error'))
-    <div class="toast-container">
-        <div class="toast-custom toast-error" id="toastBox">
-
-            <div class="toast-icon-wrap">
-                !
-            </div>
-
-            <div class="toast-body-text">
-                <div class="toast-title">
-                    Error
-                </div>
-
-                <div class="toast-msg">
-                    {{ session('error') }}
-                </div>
-            </div>
-
-            <button
-                type="button"
-                class="toast-close"
-                onclick="closeToast()">
-                ×
-            </button>
-
-        </div>
-    </div>
-@endif
-
 <script>
-    function closeToast() {
-        const toast = document.getElementById('toastBox');
+    /* ==================== SHOW TOAST FUNCTION ==================== */
+    function showToast(message, type) {
+        var container = document.getElementById('toastContainer');
 
-        if (toast) {
-            toast.classList.add('toast-fade-out');
+        var icons = {
+            success: '✅',
+            error:   '⚠️',
+            info:    'ℹ️',
+            warning: '⚡'
+        };
 
-            setTimeout(function () {
-                toast.remove();
-            }, 300);
-        }
+        /* Build toast element */
+        var toast = document.createElement('div');
+        toast.className = 'toast-item toast-' + type;
+
+        toast.innerHTML =
+            '<span class="toast-icon">' + (icons[type] || 'ℹ️') + '</span>' +
+            '<span class="toast-message">' + message + '</span>' +
+            '<button class="toast-close" onclick="dismissToast(this.parentElement)">✕</button>';
+
+        container.appendChild(toast);
+
+        /* Trigger entrance animation */
+        setTimeout(function() {
+            toast.classList.add('show');
+        }, 10);
+
+        /* Auto dismiss after 3.5 seconds */
+        setTimeout(function() {
+            dismissToast(toast);
+        }, 3500);
     }
 
-    window.addEventListener('load', function () {
-        const toast = document.getElementById('toastBox');
+    /* ==================== DISMISS TOAST FUNCTION ==================== */
+    function dismissToast(toast) {
+        toast.classList.remove('show');
+        toast.classList.add('hide');
+        setTimeout(function() {
+            if (toast.parentElement) {
+                toast.parentElement.removeChild(toast);
+            }
+        }, 400);
+    }
 
-        if (toast) {
-            setTimeout(function () {
-                closeToast();
-            }, 3000);
-        }
-    });
+    /* ==================== AUTO-FIRE FROM LARAVEL SESSION ==================== */
+    <?php if (session('success')): ?>
+        showToast("{{ session('success') }}", 'success');
+    <?php endif; ?>
+
+    <?php if (session('error')): ?>
+        showToast("{{ session('error') }}", 'error');
+    <?php endif; ?>
+
+    <?php if (session('info')): ?>
+        showToast("{{ session('info') }}", 'info');
+    <?php endif; ?>
+
+    <?php if (session('warning')): ?>
+        showToast("{{ session('warning') }}", 'warning');
+    <?php endif; ?>
 </script>

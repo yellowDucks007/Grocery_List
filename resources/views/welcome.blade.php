@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FreshCart – Grocery List</title>
+    <title>GroCart – Grocery List</title>
 
      <!-- Bootstrap  -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Patrick+Hand&family=Poppins&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -22,7 +22,7 @@
 
         body {
             background-color: var(--cream);
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
             color: var(--forest);
         }
 
@@ -33,7 +33,7 @@
         }
 
         .navbar-brand-text {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Patrick Hand', serif;
             color: var(--cream) !important;
             font-size: 1.25rem;
             font-weight: 600;
@@ -58,7 +58,7 @@
             padding: 7px 18px;
             border-radius: 6px;
             font-size: 0.875rem;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
             transition: all 0.2s;
         }
 
@@ -75,7 +75,7 @@
             border-radius: 6px;
             font-size: 0.875rem;
             font-weight: 500;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
             transition: all 0.2s;
         }
 
@@ -117,7 +117,7 @@
         }
 
         .hero-title {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Patrick Hand', serif;
             font-size: clamp(2.2rem, 5vw, 3.5rem);
             font-weight: 600;
             color: var(--forest);
@@ -145,7 +145,7 @@
             padding: 13px 30px;
             border-radius: 8px;
             font-size: 1rem;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
             font-weight: 500;
             text-decoration: none;
             display: inline-block;
@@ -164,7 +164,7 @@
             padding: 13px 30px;
             border-radius: 8px;
             font-size: 1rem;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
             font-weight: 400;
             text-decoration: none;
             display: inline-block;
@@ -193,7 +193,7 @@
         }
 
         .features-title {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Patrick Hand', serif;
             color: var(--cream);
             font-size: 2rem;
             font-weight: 600;
@@ -246,7 +246,7 @@
         }
 
         .cta-section h2 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Patrick Hand', serif;
             color: var(--cream);
             font-size: 1.85rem;
             font-weight: 600;
@@ -267,7 +267,7 @@
             padding: 13px 30px;
             border-radius: 8px;
             font-size: 0.95rem;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
             font-weight: 500;
             text-decoration: none;
             display: inline-block;
@@ -302,7 +302,7 @@
 
             <a class="navbar-brand d-flex align-items-center" href="#">
                 <span class="brand-icon">🌿</span>
-                <span class="navbar-brand-text">FreshCart</span>
+                <span class="navbar-brand-text">GroCart</span>
             </a>
 
             <div class="d-flex gap-2">
@@ -344,7 +344,7 @@
     <section class="features-section">
         <div class="container">
 
-            <p class="section-label">Why FreshCart?</p>
+            <p class="section-label">Why GroCart?</p>
             <h2 class="features-title">Everything you need to shop smarter</h2>
 
             <div class="row g-4">
@@ -386,7 +386,7 @@
 
     <!-- ==================== FOOTER ==================== -->
     <footer class="footer-main">
-        <p>&copy; {{ date('Y') }} FreshCart — Grocery List App</p>
+        <p>&copy; {{ date('Y') }} GroCart — Grocery List App</p>
     </footer>
 
     <!-- Bootstrap JS -->

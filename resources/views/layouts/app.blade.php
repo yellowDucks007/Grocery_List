@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', config('app.name', 'FreshCart'))</title>
+    <title>@yield('title', config('app.name', 'GroCart'))</title>
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Patrick+Hand&family=Poppins&display=swap" rel="stylesheet">
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -16,14 +16,12 @@
 
     <style>
         :root {
-            --primary-dark: #0F2E2E;
-            --primary-light: #1B4A4A;
+            --forest:     #103740;
+            --fern:       #3C593E;
+            --gold:       #D9A443;
+            --cream:      #F2EAE4;
+            --terracotta: #D96B52;
             --accent-teal: #3D8F8F;
-            --accent-gold: #E8B86B;
-            --accent-coral: #E07A5F;
-            --bg-warm: #F9F6F0;
-            --text-dark: #2C3E3E;
-            --text-muted: #7D8F8F;
             --white: #FFFFFF;
             --shadow-sm: 0 2px 8px rgba(0,0,0,0.03), 0 1px 2px rgba(0,0,0,0.05);
             --shadow-md: 0 4px 12px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.08);
@@ -31,9 +29,9 @@
         }
 
         body {
-            background-color: var(--bg-warm);
-            font-family: 'Inter', sans-serif;
-            color: var(--text-dark);
+            background-color: var(--cream);
+            font-family: 'Poppins', sans-serif;
+            color: var(--forest);
             font-weight: 400;
             line-height: 1.5;
         }
@@ -42,8 +40,9 @@
         .sidebar {
             width: 260px;
             min-height: 100vh;
-            background: linear-gradient(180deg, var(--primary-dark) 0%, var(--primary-light) 100%);
-            position: fixed;
+            background: linear-gradient(180deg, var(--forest) 0%, var(--fern) 100%);
+            display: flex;
+            flex-direction: column;position: fixed;
             top: 0;
             left: 0;
             z-index: 100;
@@ -65,7 +64,7 @@
         .brand-icon {
             width: 42px;
             height: 42px;
-            background: linear-gradient(135deg, var(--accent-gold) 0%, #D4A85C 100%);
+            background: linear-gradient(135deg, var(--gold) 0%, var(--cream) 100%);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -76,11 +75,11 @@
         }
 
         .brand-name {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Patrick Hand', serif;
             color: var(--white);
             font-size: 1.3rem;
             font-weight: 700;
-            letter-spacing: -0.3px;
+            letter-spacing: 1px;
             line-height: 1.2;
         }
 
@@ -114,16 +113,20 @@
         }
 
         .nav-links a {
+            min-height: 44px;
+            padding: 10px 16px;
             display: flex;
             align-items: center;
             gap: 12px;
             padding: 10px 16px;
             border-radius: 12px;
+            box-sizing: border-box;
             text-decoration: none;
             color: rgba(255,255,255,0.7);
             font-size: 0.9rem;
             font-weight: 500;
             transition: var(--transition);
+            cursor: pointer;
         }
 
         .nav-links a:hover {
@@ -138,6 +141,7 @@
             font-weight: 500;
             backdrop-filter: blur(2px);
             border-left: 3px solid var(--accent-teal);
+            box-sizing: border-box;
         }
 
         .nav-icon {
@@ -201,16 +205,16 @@
             border-radius: 40px;
             background: rgba(224,122,95,0.12);
             border: none;
-            color: var(--accent-coral);
+            color: var(--gold);
             font-size: 0.85rem;
             font-weight: 500;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
             cursor: pointer;
             transition: var(--transition);
         }
 
         .btn-logout:hover {
-            background-color: var(--accent-coral);
+            background-color: var(--gold);
             color: var(--white);
             transform: translateY(-1px);
         }
@@ -232,10 +236,10 @@
         }
 
         .topbar-title {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Open Sans', serif;
+            font-weight: 800;
             font-size: 1.25rem;
-            color: var(--primary-dark);
-            font-weight: 600;
+            color: var(--forest);
             letter-spacing: -0.3px;
         }
 
@@ -247,9 +251,9 @@
 
         .topbar-date {
             font-size: 0.85rem;
-            color: var(--text-muted);
+            color: rgba(16,55,64,0.7);
             font-weight: 400;
-            background: var(--bg-warm);
+            background: var(--cream);
             padding: 6px 14px;
             border-radius: 40px;
         }
@@ -309,7 +313,7 @@
         <a href="{{ route('dashboard') }}" class="sidebar-brand">
             <div class="brand-icon">🥬</div>
             <div>
-                <div class="brand-name">FreshCart</div>
+                <div class="brand-name">GroCart</div>
                 <div class="brand-tagline">Smart Grocery</div>
             </div>
         </a>
@@ -324,13 +328,13 @@
                 </a>
             </li>
             <li>
-                <a>
+                <a href="{{ route('grocery.index') }}" class="{{ request()->routeIs('grocery.*') ? 'active' : '' }}">
                     <span class="nav-icon"><i class="bi bi-basket-fill"></i></span>
                     Grocery List
                 </a>
             </li>
             <li>
-                <a>
+                <a href="{{ route('users.index') }}" class="{{ request()->routeIs('users.*') ? 'active' : '' }}">
                     <span class="nav-icon"><i class="bi bi-people-fill"></i></span>
                     Users
                 </a>
@@ -341,7 +345,7 @@
         <p class="nav-section-label">Account</p>
         <ul class="nav-links">
             <li>
-                <a>
+                <a href="{{ route('profile.index') }}" class="{{ request()->routeIs('profile.*') ? 'active' : '' }}">
                     <span class="nav-icon"><i class="bi bi-person-circle"></i></span>
                     My Profile
                 </a>

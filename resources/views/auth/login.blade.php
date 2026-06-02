@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login – FreshCart</title>
+    <title>Login – GroCart</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Patrick+Hand&family=Poppins&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -19,7 +19,7 @@
 
         body {
             background-color: var(--cream);
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
             color: var(--forest);
             min-height: 100vh;
             display: flex;
@@ -45,7 +45,7 @@
         }
 
         .brand-name {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Patrick Hand', serif;
             color: var(--cream);
             font-size: 1.2rem;
             font-weight: 600;
@@ -58,7 +58,7 @@
             padding: 7px 18px;
             border-radius: 6px;
             font-size: 0.875rem;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
             text-decoration: none;
             transition: all 0.2s;
         }
@@ -112,9 +112,9 @@
         }
 
         .card-title {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Open Sans', serif;
             font-size: 1.6rem;
-            font-weight: 600;
+            font-weight: 800;
             color: var(--forest);
             text-align: center;
             margin-bottom: 0.4rem;
@@ -159,7 +159,7 @@
             border: 1.5px solid #d0d8d1;
             border-radius: 8px;
             font-size: 0.95rem;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
             color: var(--forest);
             background-color: #fafafa;
             outline: none;
@@ -220,7 +220,7 @@
             padding: 13px;
             border-radius: 8px;
             font-size: 1rem;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
             font-weight: 500;
             cursor: pointer;
             transition: background-color 0.2s;
@@ -293,7 +293,7 @@
 
         <a href="{{ url('/') }}" class="d-flex align-items-center text-decoration-none">
             <span class="brand-icon">🌿</span>
-            <span class="brand-name">FreshCart</span>
+            <span class="brand-name">GroCart</span>
         </a>
 
         <a href="{{ url('/') }}" class="btn-nav-back">← Back to Home</a>
@@ -316,7 +316,7 @@
 
             <!-- Heading -->
             <h1 class="card-title">Welcome back</h1>
-            <p class="card-subtitle">Sign in to your FreshCart account</p>
+            <p class="card-subtitle">Sign in to your GroCart account</p>
 
             <!-- ==================== ERROR ALERT ==================== -->
             @if ($errors->any())
@@ -387,7 +387,7 @@
 
     <!-- ==================== FOOTER ==================== -->
     <footer class="footer-main">
-        <p>&copy; {{ date('Y') }} FreshCart — Grocery List App</p>
+        <p>&copy; {{ date('Y') }} GroCart — Grocery List App</p>
     </footer>
 
     <!-- ==================== TOAST NOTIFICATION ==================== -->
