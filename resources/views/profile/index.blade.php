@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@include('components.toast')
 
 @section('title', 'My Profile – GroCart')
 @section('page-title', 'My Profile')
