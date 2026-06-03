@@ -232,6 +232,10 @@
     }
 
     .stat-box {
+        background:rgba(16,55,64,0.04);
+        border-radius:10px;
+        padding:1rem;
+        text-align:center;
         transition: all .2s ease;
     }
 
@@ -362,22 +366,6 @@
     </div>
 </div>
 
-<div class="profile-banner">
-    <div class="profile-banner-avatar">
-        @if ($user->avatar)
-            <img src="{{ asset('storage/' . $user->avatar) }}"
-                alt="Avatar">
-        @else
-            {{ strtoupper(substr($user->name,0,2)) }}
-        @endif
-    </div>
-
-    <div>
-        <h2>{{ $user->name }}</h2>
-        <p>{{ $user->email }}</p>
-    </div>
-</div>
-
 <!-- ==================== EDIT FORM CARD ==================== -->
 <div class="edit-card">
 
@@ -393,8 +381,8 @@
             @method('PUT')
 
             <!-- Stats Row -->
-            <div class="stats-row">
-                <div class="stat-box" style="background:rgba(16,55,64,0.04);border-radius:10px;padding:1rem;text-align:center;">
+            <div class="stats-row" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem;">
+                <div class="stat-box">
                     <div style="font-family:'Open Sans',serif;font-size:1.6rem;font-weight:600;color:#103740;line-height:1;">{{ $totalItems }}</div>
                     <div style="font-size:0.72rem;color:#6b7a6c;margin-top:4px;">Total Items</div>
                 </div>
