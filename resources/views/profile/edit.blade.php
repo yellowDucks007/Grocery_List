@@ -49,6 +49,52 @@
         color: var(--forest);
     }
 
+    .profile-banner {
+        background:white;
+        border-radius:14px;
+        padding:1.5rem;
+        margin-bottom:1.5rem;
+        border:1px solid rgba(16,55,64,.07);
+        display:flex;
+        align-items:center;
+        gap:1rem;
+    }
+
+    .profile-banner-avatar {
+        width:70px;
+        height:70px;
+        border-radius:50%;
+        background:linear-gradient(
+            135deg,
+            var(--forest),
+            var(--fern)
+        );
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        color:white;
+        font-weight:600;
+        overflow:hidden;
+    }
+
+    .profile-banner-avatar img {
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+
+    .profile-banner h2 {
+        margin:0;
+        color:var(--forest);
+        font-size:1.2rem;
+    }
+
+    .profile-banner p {
+        margin:0;
+        color:#6b7a6c;
+        font-size:.85rem;
+    }
+
     /*  EDIT CARD  */
     .edit-card {
         background: #ffffff;
@@ -99,21 +145,25 @@
     }
 
     .avatar-preview {
-        width: 90px;
-        height: 90px;
+        width: 100px;
+        height: 100px;
         border-radius: 50%;
-        background-color: var(--fern);
+        background: linear-gradient(
+            135deg,
+            var(--forest),
+            var(--fern)
+        );
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.75rem;
-        color: var(--cream);
+        font-size: 1.8rem;
+        color: white;
         font-weight: 600;
-        font-family: 'Open Sans', sans-serif;
         overflow: hidden;
         flex-shrink: 0;
         text-transform: uppercase;
-        border: 3px solid rgba(16,55,64,0.1);
+        border: 4px solid white;
+        box-shadow: 0 6px 20px rgba(0,0,0,.12);
     }
 
     .avatar-preview img {
@@ -157,9 +207,36 @@
         border-color: var(--fern);
     }
 
+    .btn-remove-avatar {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background-color: rgba(217,107,82,0.12);
+        color: var(--terracotta);
+        border: 1.5px solid rgba(217,107,82,0.25);
+        padding: 7px 16px;
+        border-radius: 8px;
+        font-size: 0.82rem;
+        font-family: 'Open Sans', sans-serif;
+        cursor: pointer;
+        transition: all .18s;
+    }
+
+    .btn-remove-avatar:hover {
+        background-color: rgba(217,107,82,0.2);
+    }
+
     /* Hidden real file input */
     #avatarInput {
         display: none;
+    }
+
+    .stat-box {
+        transition: all .2s ease;
+    }
+
+    .stat-box:hover {
+        transform: translateY(-3px);
     }
 
     /*  FORM  */
@@ -285,6 +362,22 @@
     </div>
 </div>
 
+<div class="profile-banner">
+    <div class="profile-banner-avatar">
+        @if ($user->avatar)
+            <img src="{{ asset('storage/' . $user->avatar) }}"
+                alt="Avatar">
+        @else
+            {{ strtoupper(substr($user->name,0,2)) }}
+        @endif
+    </div>
+
+    <div>
+        <h2>{{ $user->name }}</h2>
+        <p>{{ $user->email }}</p>
+    </div>
+</div>
+
 <!-- ==================== EDIT FORM CARD ==================== -->
 <div class="edit-card">
 
@@ -300,20 +393,21 @@
             @method('PUT')
 
             <!-- Stats Row -->
-            <div class="stats-row" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem;">
+            <div class="stats-row">
                 <div class="stat-box" style="background:rgba(16,55,64,0.04);border-radius:10px;padding:1rem;text-align:center;">
-                    <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:600;color:#103740;line-height:1;">{{ $totalItems }}</div>
+                    <div style="font-family:'Open Sans',serif;font-size:1.6rem;font-weight:600;color:#103740;line-height:1;">{{ $totalItems }}</div>
                     <div style="font-size:0.72rem;color:#6b7a6c;margin-top:4px;">Total Items</div>
                 </div>
-                <div class="stat-box" style="background:rgba(60,89,62,0.08);border-radius:10px;padding:1rem;text-align:center;">
-                    <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:600;color:#103740;line-height:1;">{{ $completedItems }}</div>
+                <div class="stat-box">
+                    <div style="font-family:'Open Sans',serif;font-size:1.6rem;font-weight:600;color:#103740;line-height:1;">{{ $completedItems }}</div>
                     <div style="font-size:0.72rem;color:#6b7a6c;margin-top:4px;">Completed</div>
                 </div>
-                <div class="stat-box" style="background:rgba(217,164,67,0.1);border-radius:10px;padding:1rem;text-align:center;">
-                    <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:600;color:#103740;line-height:1;">{{ $pendingItems }}</div>
+                <div class="stat-box">
+                    <div style="font-family:'Open Sans',serif;font-size:1.6rem;font-weight:600;color:#103740;line-height:1;">{{ $pendingItems }}</div>
                     <div style="font-size:0.72rem;color:#6b7a6c;margin-top:4px;">Pending</div>
                 </div>
             </div>
+
             <!-- ==================== AVATAR UPLOAD ==================== -->
             <div class="avatar-upload-wrap">
 
@@ -328,10 +422,33 @@
                 <div class="avatar-upload-info">
                     <h6>Profile Picture</h6>
                     <p>JPG or PNG. Max size 2MB.</p>
-                    <button type="button" class="btn-upload" onclick="document.getElementById('avatarInput').click()">
-                        <i class="bi bi-upload"></i> Upload Photo
-                    </button>
-                    <input type="file" name="avatar" id="avatarInput" accept="image/jpg,image/jpeg,image/png">
+
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+
+                        <button type="button" class="btn-upload"
+                            onclick="document.getElementById('avatarInput').click()">
+                            <i class="bi bi-upload"></i> Upload Photo
+                        </button>
+
+                        @if($user->avatar)
+                        <button type="button" class="btn-remove-avatar"
+                            onclick="removeAvatar()">
+                            <i class="bi bi-trash"></i> Remove Photo
+                        </button>
+                        @endif
+
+                    </div>
+
+                    <input type="file"
+                        name="avatar"
+                        id="avatarInput"
+                        accept="image/jpg,image/jpeg,image/png">
+
+                    <input type="hidden" name="remove_avatar" id="removeAvatarInput" value="0">
+
+                    <small id="fileNameText"
+                        style="display:block;margin-top:8px;color:#6b7a6c;font-size:.75rem;">
+                    </small>
                 </div>
 
             </div>
@@ -425,28 +542,40 @@
 @section('scripts')
 <script>
     /* ==================== AVATAR PREVIEW ==================== */
-    document.getElementById('avatarInput').addEventListener('change', function() {
+    document.getElementById('avatarInput').addEventListener('change', function () {
+
         var file = this.files[0];
 
         if (!file) return;
 
-        /* Check file size — max 2MB */
         if (file.size > 2 * 1024 * 1024) {
             showToast('File is too large. Max size is 2MB.', 'error');
             this.value = '';
             return;
         }
 
+        document.getElementById('fileNameText').textContent = file.name;
+
         var reader = new FileReader();
 
-        reader.onload = function(e) {
-            var preview = document.getElementById('avatarPreview');
+        reader.onload = function (e) {
 
-            /* Replace initials with image preview */
-            preview.innerHTML = '<img src="' + e.target.result + '" style="width:100%;height:100%;object-fit:cover;" alt="Preview">';
+            document.getElementById('avatarPreview').innerHTML =
+                '<img src="' + e.target.result + '" style="width:100%;height:100%;object-fit:cover;">';
         };
 
         reader.readAsDataURL(file);
     });
+
+    function removeAvatar() {
+
+        document.getElementById('removeAvatarInput').value = '1';
+
+        document.getElementById('avatarPreview').innerHTML =
+            '<span>{{ strtoupper(substr($user->name,0,2)) }}</span>';
+
+        document.getElementById('fileNameText').textContent =
+            'Profile picture will be removed after saving.';
+    }
 </script>
 @endsection

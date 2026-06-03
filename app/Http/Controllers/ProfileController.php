@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use App\Models\GroceryItem;
 use App\Models\User;
 
@@ -41,8 +42,19 @@ class ProfileController extends Controller
             $user->password = Hash::make($request->password);
         }
 
+        if ($request->remove_avatar == 1) {
+
+            if ($user->avatar &&
+                Storage::disk('public')->exists($user->avatar)) {
+
+                Storage::disk('public')->delete($user->avatar);
+            }
+
+            $user->avatar = null;
+        }
+
         if ($request->hasFile('avatar')) {
-            \Illuminate\Support\Facades\Storage::disk('public')->delete($user->avatar);
+            Storage::disk('public')->delete($user->avatar);
             $path         = $request->file('avatar')->store('avatars', 'public');
             $user->avatar = $path;
         }
