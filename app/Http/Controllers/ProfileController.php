@@ -2,27 +2,44 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\GroceryItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use App\Models\GroceryItem;
-use App\Models\User;
 
 class ProfileController extends Controller
 {
-    /* Show the edit profile page with stats */
+    /**
+     * Show profile page
+     */
     public function edit()
     {
-        $user           = Auth::user();
-        $totalItems     = GroceryItem::where('user_id', $user->id)->count();
-        $completedItems = GroceryItem::where('user_id', $user->id)->where('status', 'completed')->count();
-        $pendingItems   = GroceryItem::where('user_id', $user->id)->where('status', 'pending')->count();
+        /** @var User $user */
+        $user = Auth::user();
 
-        return view('profile.edit', compact('user', 'totalItems', 'completedItems', 'pendingItems'));
+        $totalItems = GroceryItem::where('user_id', $user->id)->count();
+
+        $completedItems = GroceryItem::where('user_id', $user->id)
+            ->where('status', 'completed')
+            ->count();
+
+        $pendingItems = GroceryItem::where('user_id', $user->id)
+            ->where('status', 'pending')
+            ->count();
+
+        return view('profile.edit', compact(
+            'user',
+            'totalItems',
+            'completedItems',
+            'pendingItems'
+        ));
     }
 
-    /* Handle profile update */
+    /**
+     * Update profile
+     */
     public function update(Request $request)
     {
         /** @var User $user */
@@ -35,32 +52,47 @@ class ProfileController extends Controller
             'avatar'   => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $user->name  = $request->name;
+        /* Update basic information */
+        $user->name = $request->name;
         $user->email = $request->email;
 
+        /* Update password if provided */
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
 
+        /* Remove avatar */
         if ($request->remove_avatar == 1) {
 
-            if ($user->avatar &&
-                Storage::disk('public')->exists($user->avatar)) {
-
+            if (
+                !empty($user->avatar) &&
+                Storage::disk('public')->exists($user->avatar)
+            ) {
                 Storage::disk('public')->delete($user->avatar);
             }
 
             $user->avatar = null;
         }
 
+        /* Upload new avatar */
         if ($request->hasFile('avatar')) {
-            Storage::disk('public')->delete($user->avatar);
-            $path         = $request->file('avatar')->store('avatars', 'public');
-            $user->avatar = $path;
+
+            if (
+                !empty($user->avatar) &&
+                Storage::disk('public')->exists($user->avatar)
+            ) {
+                Storage::disk('public')->delete($user->avatar);
+            }
+
+            $user->avatar = $request
+                ->file('avatar')
+                ->store('avatars', 'public');
         }
 
         $user->save();
 
-        return redirect()->route('profile.edit')->with('success', 'Profile updated successfully!');
+        return redirect()
+            ->route('profile.edit')
+            ->with('success', 'Profile updated successfully!');
     }
 }
