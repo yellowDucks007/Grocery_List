@@ -280,12 +280,9 @@
 <!-- ==================== PAGE HEADER ==================== -->
 <div class="page-header">
     <div>
-        <h1>Edit Profile</h1>
+        <h1>My Profile</h1>
         <p>Update your account information and profile picture</p>
     </div>
-    <a href="{{ route('profile.index') }}" class="btn-back">
-        <i class="bi bi-arrow-left"></i> Back to Profile
-    </a>
 </div>
 
 <!-- ==================== EDIT FORM CARD ==================== -->
@@ -302,6 +299,21 @@
             @csrf
             @method('PUT')
 
+            <!-- Stats Row -->
+            <div class="stats-row" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem;">
+                <div class="stat-box" style="background:rgba(16,55,64,0.04);border-radius:10px;padding:1rem;text-align:center;">
+                    <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:600;color:#103740;line-height:1;">{{ $totalItems }}</div>
+                    <div style="font-size:0.72rem;color:#6b7a6c;margin-top:4px;">Total Items</div>
+                </div>
+                <div class="stat-box" style="background:rgba(60,89,62,0.08);border-radius:10px;padding:1rem;text-align:center;">
+                    <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:600;color:#103740;line-height:1;">{{ $completedItems }}</div>
+                    <div style="font-size:0.72rem;color:#6b7a6c;margin-top:4px;">Completed</div>
+                </div>
+                <div class="stat-box" style="background:rgba(217,164,67,0.1);border-radius:10px;padding:1rem;text-align:center;">
+                    <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:600;color:#103740;line-height:1;">{{ $pendingItems }}</div>
+                    <div style="font-size:0.72rem;color:#6b7a6c;margin-top:4px;">Pending</div>
+                </div>
+            </div>
             <!-- ==================== AVATAR UPLOAD ==================== -->
             <div class="avatar-upload-wrap">
 
@@ -398,9 +410,6 @@
 
             <!-- ==================== FORM FOOTER ==================== -->
             <div class="form-footer">
-                <a href="{{ route('profile.index') }}" class="btn-cancel">
-                    <i class="bi bi-x"></i> Cancel
-                </a>
                 <button type="submit" class="btn-save">
                     <i class="bi bi-check-lg"></i> Save Changes
                 </button>
