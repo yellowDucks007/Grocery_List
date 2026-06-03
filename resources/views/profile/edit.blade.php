@@ -418,8 +418,6 @@
                             <i class="bi bi-upload"></i> Upload Photo
                         </button>
 
-                        <input type="hidden" name="remove_avatar" id="removeAvatar" value="0">
-
                         @if($user->avatar)
                         <button type="button" class="btn-remove-avatar"
                             onclick="removeAvatar()">
